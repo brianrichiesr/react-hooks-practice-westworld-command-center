@@ -7,6 +7,16 @@
   padding: 5px;
 }
 
+.areaImg {
+  height: 3em;
+  width: 3em;
+  object-fit: cover;
+  object-position: top;
+  border: 2px solid rgb(212, 215, 147);
+  border-radius: 5px;
+  margin: .2em .5em;
+}
+
 #high_plains {
   top: 20px;
   left: 315px;

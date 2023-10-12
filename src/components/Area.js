@@ -1,25 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import HostImage from "./HostImage";
 import "../stylesheets/Area.css";
 
-function Area() {
+function Area({ area, hosts, handleClick }) {
+  const [hostsInArea, setHostsInArea] = useState([]);
+  // const [areaLimit, setAreaLimit] = useState(0);
+
+  useEffect(() => {
+    const mappedHosts = [...hosts].map(host => {
+      return host.active ? (host.area === area.name ? (
+      <HostImage key={`img-${host.id}`} handleClick={handleClick} host={host} />
+      ) : null) : null
+    }).filter(item => item !== null);
+    setHostsInArea(mappedHosts)
+  }, [area, hosts, handleClick])
+
+  const fixName = (str) => {
+    return str.name.split("_").map(item => {
+      return item[0].toUpperCase() + item.slice(1)
+    }).join(" "); 
+  }
+  const properName = fixName(area);
+
+
   return (
     <div
       className="area"
-      id={
-        /* Pass in the area name here to make sure this is styled correctly */ "id"
-      }
+      id={area.name}
     >
       <h3 className="labels">
-        {/* Don't just pass in the name from the data...clean that thing up */}
+        {properName}
       </h3>
-      {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
+      {hostsInArea}
     </div>
   );
 }
 
 Area.propTypes = {
   hosts: function (props) {
-    if (props.hosts.length > props.limit) {
+    if (props.hosts && props.hosts.length > props.limit) {
       throw Error(
         `HEY!! You got too many hosts in ${props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
       );

@@ -1,5 +1,11 @@
 .hostImg {
-  overflow: hidden;
+  /* overflow: hidden; */
+  object-fit: cover;
+  object-position: top;
+}
+
+.ui.small.image {
   height: 160px;
   width: 130px;
+  
 }
